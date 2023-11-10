@@ -1,16 +1,16 @@
-import { CustomError, ERROR_MESSAGES, COMMON } from "../constants/errors.js";
 import { EVENT_DATE } from "../constants/common.js";
+import { CustomError } from "../constants/errors.js";
 
 class Validation {
-  static validateIsNumber(num) {
+  static validateIsNumber(num, message) {
     if (isNaN(num)) {
-      throw new CustomError(ERROR_MESSAGES.INVALID(COMMON.DATE));
+      throw new CustomError(message);
     }
   }
   
-  static validateDateRange(num) {
+  static validateDateRange(num, message) {
     if(!(num >= EVENT_DATE.start && num <= EVENT_DATE.end)) {
-      throw new CustomError(ERROR_MESSAGES.INVALID(COMMON.DATE));
+      throw new CustomError(message);
     }
   }
 }

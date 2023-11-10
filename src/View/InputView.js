@@ -1,6 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
 import { RESTAURANT_QUESTION } from "../constants/messages.js";
 import InputValidator from "../InputValidator.js";
+import Convert from "../utils/Convert.js";
 
 const InputView = {
   async readVisitDate() {
@@ -17,9 +18,15 @@ const InputView = {
 
   async readOrderMenu() {
     try {
-      const orderMenu = await Console.readLineAsync(RESTAURANT_QUESTION.ASK_MENU);
+      const orderedMenu = await Console.readLineAsync(RESTAURANT_QUESTION.ASK_MENU);
 
-      return orderMenu;
+      const menuArray = Convert.menuInputToMenuArray(orderedMenu);
+      InputValidator.isOrderedMenuValidated(menuArray);
+      
+      const [menusArray, countsArray] = Convert.splitMenuArray(menuArray);
+      InputValidator.isMenusValidated(menusArray, countsArray);
+      
+      return [menusArray, countsArray];
     } catch (error) {
       Console.print(error.message);
       return this.readOrderMenu();

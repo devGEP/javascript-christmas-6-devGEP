@@ -4,7 +4,8 @@ import InputView from './View/InputView.js';
 class App {
   constructor() {
     this.date = 0;
-    this.menu = [];
+    this.menuNames = [];
+    this.menuPrices = [];
   }
 
   async run() {
@@ -18,8 +19,9 @@ class App {
   }
 
   async askOrderMenu() {
-    this.menu = await InputView.readOrderMenu();
-    Console.print(this.menu);
+    [this.menuNames, this.menuPrices] = await InputView.readOrderMenu();
+    Console.print(this.menuNames);
+    Console.print(this.menuPrices);
   }
   
 }
