@@ -1,7 +1,8 @@
 export const EVENT_MONTH = '12월';
-
-export const DATE = '날짜';
-export const ORDER = '주문';
+export const EVENT_DATE = {
+  start: 1,
+  end: 31
+};
 
 export const DOESNT_EXIST = '없음';
 export const NEW_LINE = '';
