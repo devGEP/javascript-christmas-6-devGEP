@@ -20,6 +20,7 @@ class InputValidator {
     MenuValidation.validateMenuCounts(counts, ERROR_MESSAGES.INVALID(COMMON.ORDER));
     MenuValidation.validateIsInMenu(menus, ERROR_MESSAGES.MENU_INVALID(ERROR_REASON.MENU_IS_NOT_EXIST));
     MenuValidation.validateHasDuplicateMenu(menus, ERROR_MESSAGES.MENU_INVALID(ERROR_REASON.MENU_HAS_DUPLICATED));
+    MenuValidation.validateAreMoreThanTwentyMenus(counts, ERROR_MESSAGES.MENU_INVALID(ERROR_REASON.MENU_IS_MORE_THAN_TWENTY));
   }
 }
 

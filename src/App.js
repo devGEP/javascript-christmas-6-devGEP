@@ -9,16 +9,16 @@ class App {
   }
 
   async run() {
-    await this.askVisitDate();
-    await this.askOrderMenu();
+    await this.getVisitDate();
+    await this.getOrderedMenu();
   }
 
-  async askVisitDate() {
+  async getVisitDate() {
     this.date = await InputView.readVisitDate();
     Console.print(this.date);
   }
 
-  async askOrderMenu() {
+  async getOrderedMenu() {
     [this.menuNames, this.menuPrices] = await InputView.readOrderMenu();
     Console.print(this.menuNames);
     Console.print(this.menuPrices);

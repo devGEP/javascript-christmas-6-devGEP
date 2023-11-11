@@ -1,4 +1,5 @@
 import { CustomError } from "../constants/errors.js";
+import { MAXIMUM_MENU_COUNT } from "../constants/common.js";
 import { APPETIZER_MENU, MAIN_MENU, DESSERT_MENU, BEVERAGE_MENU } from "../constants/menus.js";
 
 class MenuValidation {
@@ -70,6 +71,19 @@ class MenuValidation {
     if (uniqueMenus.size !== menus.length) {
       throw new CustomError(message);
     }
+  }
+
+  static validateAreMoreThanTwentyMenus(counts, message) {
+    console.log('counts: ', counts);
+    let totalCounts = 0;
+    counts.forEach(count => {
+      totalCounts += Number(count);
+      console.log('totalCounts: ', totalCounts);
+
+      if (totalCounts > 20) {
+        throw new CustomError(message);
+      }
+    });
   }
 }
 
