@@ -6,13 +6,13 @@ import Receipt from '../models/Receipt.js';
 import OutputView from '../views/OutputView.js';
 
 // constants
-import { RECEIPT_TITLE, PROFIT_HISTORY_DETAIL } from '../constants/eventResults.js';
+import { RECEIPT_TITLE, PROFIT_HISTORY_DETAIL, RESULT_FORMATS } from '../constants/eventResults.js';
 
 class RestaurantController {
   constructor() {
     this.employee = new Employee();
     this.receipt = new Receipt();
-    this.visitDate = 1;
+    this.orderedMenu = [];
     this.profitHistoryPrice = [];
   }
 
@@ -24,6 +24,24 @@ class RestaurantController {
     await this.employee.handleVisitDate();
 
     await this.employee.handleOrderedMenu();
+  }
+
+  displayOrderedMenu() {
+    const menu = this.employee.getOrderedMenu();
+    this.orderedMenu.push(...menu);
+
+    OutputView.printReceiptTitle(RECEIPT_TITLE.ORDER_MENU);
+    
+    this.orderedMenu[0].forEach((menu, index) => {
+      OutputView.printOrderedMenu(menu, this.orderedMenu[1][index]);
+    })
+  }
+
+  displayBeforeDiscountOrderedAmount() {
+    OutputView.printReceiptTitle(RECEIPT_TITLE.BEFORE_DISCOUNT_TOTAL_PRICE);
+
+    const totalPrice = this.receipt.calculateBeforeDiscountAmount(this.orderedMenu[0], this.orderedMenu[1]);
+    OutputView.printTotalPrice(totalPrice);
   }
 
   displayProfitHistory() {
@@ -42,6 +60,8 @@ class RestaurantController {
     const discountsWithDate = this.receipt.calculateDiscountWithDate(this.employee.getVisitDate());
     this.profitHistoryPrice.push(...discountsWithDate);
 
+    this.displayOrderedMenu();
+    this.displayBeforeDiscountOrderedAmount();
     this.displayProfitHistory();
   }
 }

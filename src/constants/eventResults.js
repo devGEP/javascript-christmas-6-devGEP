@@ -1,11 +1,11 @@
 export const RECEIPT_TITLE = Object.freeze({
   ORDER_MENU: '<주문 메뉴>',
-  BEFORE_DISCOUNT_TOTAL_PRICE: '<할인 전 총주문 금액>',
-  PRESENT_MENU: '<증정 메뉴>',
-  PROFIT_HISTORY: '<혜택 내역>',
-  TOTAL_PROFIT_PRICE: '<총혜택 금액>',
-  AFTER_DISCOUNT_TOTAL_PRICE: '<할인 후 예상 결제 금액>',
-  EVENT_BADGE: '<12월 이벤트 배지>'
+  BEFORE_DISCOUNT_TOTAL_PRICE: '\n<할인 전 총주문 금액>',
+  PRESENT_MENU: '\n<증정 메뉴>',
+  PROFIT_HISTORY: '\n<혜택 내역>',
+  TOTAL_PROFIT_PRICE: '\n<총혜택 금액>',
+  AFTER_DISCOUNT_TOTAL_PRICE: '\n<할인 후 예상 결제 금액>',
+  EVENT_BADGE: '\n<12월 이벤트 배지>'
 });
 
 export const PROFIT_HISTORY_DETAIL = Object.freeze({
@@ -18,6 +18,6 @@ export const PROFIT_HISTORY_DETAIL = Object.freeze({
 
 export const RESULT_FORMATS = Object.freeze({
   MENU: (menu, count) => `${menu} ${count}개`,
-  PRICE: (price) => `${price}원`,
-  DISCOUNT: (profit, price) => `${profit}: -${RESULT_FORMATS.PRICE(price)}`
+  PRICE: (price) => `${price.toLocaleString()}원`,
+  DISCOUNT: (profit, price) => `${profit}: -${RESULT_FORMATS.PRICE(price.toLocaleString())}`
 })

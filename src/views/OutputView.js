@@ -17,6 +17,14 @@ const OutputView = {
     Console.print(title);
   },
 
+  printOrderedMenu(name, count) {
+    Console.print(RESULT_FORMATS.MENU(name, count));
+  },
+
+  printTotalPrice(price) {
+    Console.print(RESULT_FORMATS.PRICE(price));
+  },
+
   printProfitHistoryDetail(profit, price) {
     if (price === 0 || price === undefined) {
       return;
