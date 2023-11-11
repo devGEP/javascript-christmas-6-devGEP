@@ -35,6 +35,13 @@ class Receipt {
 
     return totalPrice;
   }
+
+  determineGiftMenu(beforePrice) {
+    if(beforePrice >= 120000) {
+      return true;
+    }
+    return false;
+  }
 }
 
 export default Receipt;

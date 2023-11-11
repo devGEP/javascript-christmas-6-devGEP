@@ -3,6 +3,8 @@ import { Console } from "@woowacourse/mission-utils";
 // constants
 import { RESTAURANT_MESSAGES } from "../constants/messages.js";
 import { RESULT_FORMATS } from "../constants/eventResults.js";
+import { BEVERAGE_MENU } from "../constants/menus.js";
+import { GIFT_COUNT, DOESNT_EXIST } from "../constants/common.js";
 
 const OutputView = {
   printWelcomeMessage() {
@@ -23,6 +25,14 @@ const OutputView = {
 
   printTotalPrice(price) {
     Console.print(RESULT_FORMATS.PRICE(price));
+  },
+
+  printGiftMenu(giftMenu) {
+    if (giftMenu) {
+      Console.print(RESULT_FORMATS.MENU(BEVERAGE_MENU.CHAMPAGNE.name, GIFT_COUNT));
+      return;
+    }
+    Console.print(DOESNT_EXIST);
   },
 
   printProfitHistoryDetail(profit, price) {

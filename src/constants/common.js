@@ -5,6 +5,7 @@ export const EVENT_DATE = {
 };
 
 export const DOESNT_EXIST = '없음';
+export const GIFT_COUNT = 1;
 
 export const MAXIMUM_MENU_COUNT = 20;
 

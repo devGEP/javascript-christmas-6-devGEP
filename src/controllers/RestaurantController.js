@@ -13,6 +13,7 @@ class RestaurantController {
     this.employee = new Employee();
     this.receipt = new Receipt();
     this.orderedMenu = [];
+    this.beforePrice = 0;
     this.profitHistoryPrice = [];
   }
 
@@ -40,8 +41,15 @@ class RestaurantController {
   displayBeforeDiscountOrderedAmount() {
     OutputView.printReceiptTitle(RECEIPT_TITLE.BEFORE_DISCOUNT_TOTAL_PRICE);
 
-    const totalPrice = this.receipt.calculateBeforeDiscountAmount(this.orderedMenu[0], this.orderedMenu[1]);
-    OutputView.printTotalPrice(totalPrice);
+    this.beforePrice = this.receipt.calculateBeforeDiscountAmount(this.orderedMenu[0], this.orderedMenu[1]);
+    OutputView.printTotalPrice(this.beforePrice);
+  }
+
+  displayGiftMenu() {
+    OutputView.printReceiptTitle(RECEIPT_TITLE.GIFT_MENU);
+
+    const giftMenu = this.receipt.determineGiftMenu(this.beforePrice);
+    OutputView.printGiftMenu(giftMenu);
   }
 
   displayProfitHistory() {
@@ -62,6 +70,7 @@ class RestaurantController {
 
     this.displayOrderedMenu();
     this.displayBeforeDiscountOrderedAmount();
+    this.displayGiftMenu();
     this.displayProfitHistory();
   }
 }
