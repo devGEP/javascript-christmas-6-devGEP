@@ -1,28 +1,20 @@
-import { Console } from '@woowacourse/mission-utils';
-import InputView from './View/InputView.js';
+// controllers
+import RestaurantController from './controllers/RestaurantController.js';
 
 class App {
   constructor() {
-    this.date = 0;
-    this.menuNames = [];
-    this.menuPrices = [];
+    this.controller = new RestaurantController();
   }
 
   async run() {
-    await this.getVisitDate();
-    await this.getOrderedMenu();
+    this.controller.initialize();
+
+    await this.controller.receiveRequiredInfo();
+
+    this.controller.displayReceipts();
   }
 
-  async getVisitDate() {
-    this.date = await InputView.readVisitDate();
-    Console.print(this.date);
-  }
 
-  async getOrderedMenu() {
-    [this.menuNames, this.menuPrices] = await InputView.readOrderMenu();
-    Console.print(this.menuNames);
-    Console.print(this.menuPrices);
-  }
   
 }
 

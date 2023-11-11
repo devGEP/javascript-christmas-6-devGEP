@@ -1,8 +1,9 @@
+// constants
 import { EVENT_MONTH } from './common.js';
 
 export const RESTAURANT_MESSAGES = Object.freeze({
   WELCOME_MESSAGE: `안녕하세요! 우테코 식당 ${EVENT_MONTH} 이벤트 플래너입니다.`,
-  EVENT_PREVIEW_MESSAGE: (date) => `${EVENT_MONTH} ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!`,
+  EVENT_PREVIEW_MESSAGE: (date) => `${EVENT_MONTH} ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`,
 });
 
 export const RESTAURANT_QUESTION = Object.freeze({

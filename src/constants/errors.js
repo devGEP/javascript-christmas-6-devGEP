@@ -1,3 +1,4 @@
+// constants
 import { MAXIMUM_MENU_COUNT } from "./common.js";
 
 export class CustomError extends Error {

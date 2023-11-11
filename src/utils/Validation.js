@@ -1,3 +1,4 @@
+// constants
 import { EVENT_DATE } from "../constants/common.js";
 import { CustomError } from "../constants/errors.js";
 

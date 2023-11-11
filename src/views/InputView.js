@@ -1,7 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
-import { RESTAURANT_QUESTION } from "../constants/messages.js";
 import InputValidator from "../InputValidator.js";
+
+// utils
 import Convert from "../utils/Convert.js";
+
+// constants
+import { RESTAURANT_QUESTION } from "../constants/messages.js";
 
 const InputView = {
   async readVisitDate() {

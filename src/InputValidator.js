@@ -1,6 +1,9 @@
-import { ERROR_MESSAGES, COMMON, ERROR_REASON } from "./constants/errors.js";
+// utils
 import Validation from "./utils/Validation.js";
 import MenuValidation from "./utils/MenuValidation.js";
+
+// constants
+import { ERROR_MESSAGES, COMMON, ERROR_REASON } from "./constants/errors.js";
 
 class InputValidator {
   static isVisitDateValidated(visitDate) {
