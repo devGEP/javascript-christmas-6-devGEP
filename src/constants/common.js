@@ -5,6 +5,13 @@ export const EVENT_DATE = {
 };
 
 export const DOESNT_EXIST = '없음';
-export const NEW_LINE = '';
 
 export const MAXIMUM_MENU_COUNT = 20;
+
+export const SPECIAL_DISCOUNT_DAY = [3, 10, 17, 24, 25, 31];
+
+export const DISCOUNT_MONEY = {
+  NO_DISCOUNT: 0,
+  DEFAULT: 1000,
+  CHRISTMAS_INCREASE: 100,
+}

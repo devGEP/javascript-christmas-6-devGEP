@@ -2,6 +2,7 @@ import { Console } from "@woowacourse/mission-utils";
 
 // constants
 import { RESTAURANT_MESSAGES } from "../constants/messages.js";
+import { RESULT_FORMATS } from "../constants/eventResults.js";
 
 const OutputView = {
   printWelcomeMessage() {
@@ -10,6 +11,17 @@ const OutputView = {
 
   printEventPreviewMessage(visitDate) {
     Console.print(RESTAURANT_MESSAGES.EVENT_PREVIEW_MESSAGE(visitDate));
+  },
+
+  printReceiptTitle(title) {
+    Console.print(title);
+  },
+
+  printProfitHistoryDetail(profit, price) {
+    if (price === 0 || price === undefined) {
+      return;
+    }
+    Console.print(RESULT_FORMATS.DISCOUNT(profit, price));
   }
 }
 

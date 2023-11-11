@@ -1,4 +1,4 @@
-export const SEPERATE_RESULT_TYPE = Object.freeze({
+export const RECEIPT_TITLE = Object.freeze({
   ORDER_MENU: '<주문 메뉴>',
   BEFORE_DISCOUNT_TOTAL_PRICE: '<할인 전 총주문 금액>',
   PRESENT_MENU: '<증정 메뉴>',
@@ -19,4 +19,5 @@ export const PROFIT_HISTORY_DETAIL = Object.freeze({
 export const RESULT_FORMATS = Object.freeze({
   MENU: (menu, count) => `${menu} ${count}개`,
   PRICE: (price) => `${price}원`,
+  DISCOUNT: (profit, price) => `${profit}: -${RESULT_FORMATS.PRICE(price)}`
 })
