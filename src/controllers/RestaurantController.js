@@ -6,9 +6,9 @@ import Receipt from '../models/Receipt.js';
 import OutputView from '../views/OutputView.js';
 
 // constants
-import { RECEIPT_TITLE, PROFIT_HISTORY_DETAIL } from '../constants/eventResults.js';
+import { RECEIPT_TITLE, PROFIT_HISTORY_DETAIL, DECEMBER_EVENT_BADGE } from '../constants/eventResults.js';
 import { BEVERAGE_MENU } from '../constants/menus.js';
-import { DOESNT_EXIST, DEFAUlT } from '../constants/common.js';
+import { DOESNT_EXIST, DEFAULT_NUM } from '../constants/common.js';
 
 class RestaurantController {
   constructor() {
@@ -56,10 +56,11 @@ class RestaurantController {
     this.displayProfitHistory();
     this.displayTotalProfitPrice();
     this.displayAfterDiscountOrderedAmount();
+    this.displayDecemberEventBadge();
   }
 
   displayOrderedMenu() {
-    OutputView.printReceiptTitle(RECEIPT_TITLE.ORDER_MENU);
+    OutputView.printText(RECEIPT_TITLE.ORDER_MENU);
     
     this.orderedMenu[0].forEach((menu, index) => {
       OutputView.printOrderedMenu(menu, this.orderedMenu[1][index]);
@@ -67,19 +68,19 @@ class RestaurantController {
   }
 
   displayBeforeDiscountOrderedAmount() {
-    OutputView.printReceiptTitle(RECEIPT_TITLE.BEFORE_DISCOUNT_TOTAL_PRICE);
+    OutputView.printText(RECEIPT_TITLE.BEFORE_DISCOUNT_TOTAL_PRICE);
 
     OutputView.printTotalPrice(this.beforePrice);
   }
 
   displayGiftMenu() {
-    OutputView.printReceiptTitle(RECEIPT_TITLE.GIFT_MENU);
+    OutputView.printText(RECEIPT_TITLE.GIFT_MENU);
 
     OutputView.printGiftMenu(this.isGiftMenu);
   }
 
   displayProfitHistory() {
-    OutputView.printReceiptTitle(RECEIPT_TITLE.PROFIT_HISTORY);
+    OutputView.printText(RECEIPT_TITLE.PROFIT_HISTORY);
 
     const isAllProfitNotInclude = this.profitHistoryPrice.every(profit => profit[1] === 0);
 
@@ -94,7 +95,7 @@ class RestaurantController {
   }
 
   displayTotalProfitPrice() {
-    OutputView.printReceiptTitle(RECEIPT_TITLE.TOTAL_PROFIT_PRICE);
+    OutputView.printText(RECEIPT_TITLE.TOTAL_PROFIT_PRICE);
 
     this.profitHistoryPrice.forEach((profit) => {
       this.totalProfitPrice += profit[1];
@@ -104,7 +105,7 @@ class RestaurantController {
   }
 
   displayAfterDiscountOrderedAmount() {
-    OutputView.printReceiptTitle(RECEIPT_TITLE.AFTER_DISCOUNT_TOTAL_PRICE);
+    OutputView.printText(RECEIPT_TITLE.AFTER_DISCOUNT_TOTAL_PRICE);
 
     const totalDiscount = this.profitHistoryPrice.reduce((acc, [profitTitle, price]) => {
       if (profitTitle !== PROFIT_HISTORY_DETAIL.GIFT_EVENT) {
@@ -112,9 +113,25 @@ class RestaurantController {
       }
 
       return acc;
-    }, DEFAUlT); 
+    }, DEFAULT_NUM); 
 
     OutputView.printTotalPrice(this.beforePrice - totalDiscount);
+  }
+
+  displayDecemberEventBadge() {
+    OutputView.printText(RECEIPT_TITLE.EVENT_BADGE);
+
+    const isBadge = Object.values(DECEMBER_EVENT_BADGE).some(badge => {
+      if (this.totalProfitPrice >= badge.money) {
+        OutputView.printText(badge.name);
+        return true;
+      }
+      return false;
+    });
+
+    if (!isBadge) {
+      OutputView.printNoProfitMessage(DOESNT_EXIST);
+    }
   }
 }
 

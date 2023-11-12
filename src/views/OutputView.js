@@ -4,7 +4,7 @@ import { Console } from "@woowacourse/mission-utils";
 import { RESTAURANT_MESSAGES } from "../constants/messages.js";
 import { RESULT_FORMATS } from "../constants/eventResults.js";
 import { BEVERAGE_MENU } from "../constants/menus.js";
-import { GIFT_COUNT, DOESNT_EXIST } from "../constants/common.js";
+import { GIFT_COUNT, DOESNT_EXIST, DEFAULT_NUM } from "../constants/common.js";
 
 const OutputView = {
   printWelcomeMessage() {
@@ -15,8 +15,8 @@ const OutputView = {
     Console.print(RESTAURANT_MESSAGES.EVENT_PREVIEW_MESSAGE(visitDate));
   },
 
-  printReceiptTitle(title) {
-    Console.print(title);
+  printText(text) {
+    Console.print(text);
   },
 
   printOrderedMenu(name, count) {
@@ -36,7 +36,7 @@ const OutputView = {
   },
 
   printProfitHistoryDetail(profit, price) {
-    if (price === 0 || price === undefined) {
+    if (price === DEFAULT_NUM) {
       return;
     }
     Console.print(RESULT_FORMATS.DISCOUNT(profit, price));
@@ -47,6 +47,10 @@ const OutputView = {
   },
 
   printTotalProfitPrice(price) {
+    if (price === DEFAULT_NUM) {
+      Console.print(RESULT_FORMATS.PRICE(price));
+      return;
+    }
     Console.print(RESULT_FORMATS.TOTAL_DISCOUNT(price));
   },
 }

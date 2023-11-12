@@ -16,9 +16,24 @@ export const PROFIT_HISTORY_DETAIL = Object.freeze({
   GIFT_EVENT: '증정 이벤트'
 });
 
+export const DECEMBER_EVENT_BADGE = Object.freeze({
+  MORE_THAN_TWENTY_THOUSAND: {
+    money: 20000,
+    name: '산타'
+  },
+  MORE_THAN_TEN_THOUSAND: {
+    money: 10000,
+    name: '트리'
+  },
+  MORE_THAN_FIVE_THOUSAND: {
+    money: 5000,
+    name: '별'
+  }
+});
+
 export const RESULT_FORMATS = Object.freeze({
   MENU: (menu, count) => `${menu} ${count}개`,
   PRICE: (price) => `${price.toLocaleString()}원`,
   DISCOUNT: (profit, price) => `${profit}: -${RESULT_FORMATS.PRICE(price.toLocaleString())}`,
   TOTAL_DISCOUNT: (price) => `-${RESULT_FORMATS.PRICE(price.toLocaleString())}`
-})
+});
