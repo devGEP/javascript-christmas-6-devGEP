@@ -1,4 +1,3 @@
-// views
 import InputView from "../views/InputView.js";
 
 class Employee {

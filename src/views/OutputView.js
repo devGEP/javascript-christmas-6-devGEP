@@ -1,6 +1,4 @@
 import { Console } from "@woowacourse/mission-utils";
-
-// constants
 import { RESTAURANT_MESSAGES } from "../constants/messages.js";
 import { RESULT_FORMATS } from "../constants/eventResults.js";
 import { BEVERAGE_MENU } from "../constants/menus.js";
@@ -27,8 +25,12 @@ const OutputView = {
     Console.print(RESULT_FORMATS.PRICE(price));
   },
 
-  printGiftMenu(giftMenu) {
-    if (giftMenu) {
+  printNoProfitMessage() {
+    Console.print(DOESNT_EXIST);
+  },
+
+  printGiftMenu(isGiftAvailable) {
+    if (isGiftAvailable) {
       Console.print(RESULT_FORMATS.MENU(BEVERAGE_MENU.CHAMPAGNE.name, GIFT_COUNT));
       return;
     }
@@ -36,14 +38,9 @@ const OutputView = {
   },
 
   printProfitHistoryDetail(profit, price) {
-    if (price === DEFAULT_NUM) {
-      return;
+    if (price !== DEFAULT_NUM) {
+      Console.print(RESULT_FORMATS.DISCOUNT(profit, price));
     }
-    Console.print(RESULT_FORMATS.DISCOUNT(profit, price));
-  },
-
-  printNoProfitMessage() {
-    Console.print(DOESNT_EXIST);
   },
 
   printTotalProfitPrice(price) {

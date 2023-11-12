@@ -1,10 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import InputValidator from "../InputValidator.js";
-
-// models
 import MenuCalculator from "../models/MenuCalculator.js";
-
-// constants
 import { RESTAURANT_QUESTION } from "../constants/messages.js";
 
 const InputView = {
@@ -24,17 +20,21 @@ const InputView = {
     try {
       const orderedMenu = await Console.readLineAsync(RESTAURANT_QUESTION.ASK_MENU);
 
-      const menuArray = MenuCalculator.menuInputToMenuArray(orderedMenu);
-      InputValidator.isOrderedMenuValidated(menuArray);
-      
-      const [menusArray, countsArray] = MenuCalculator.splitMenuArray(menuArray);
-      InputValidator.isMenusValidated(menusArray, countsArray);
-      
-      return [menusArray, countsArray];
+      return this.processOrderMenu(orderedMenu);
     } catch (error) {
       Console.print(error.message);
       return this.readOrderMenu();
     }
+  },
+
+  processOrderMenu(orderedMenu) {
+    const menuArray = MenuCalculator.menuInputToMenuArray(orderedMenu);
+    InputValidator.isOrderedMenuValidated(menuArray);
+    
+    const [menusArray, countsArray] = MenuCalculator.splitMenuArray(menuArray);
+    InputValidator.isMenusValidated(menusArray, countsArray);
+
+    return [menusArray, countsArray];
   }
 }
 
