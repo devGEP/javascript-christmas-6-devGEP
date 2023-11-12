@@ -22,6 +22,7 @@ export const DAY_OF_THE_WEEK = {
 
 export const DOESNT_EXIST = '없음';
 export const GIFT_COUNT = 1;
+export const DEFAUlT = 0;
 
 export const MAXIMUM_MENU_COUNT = 20;
 

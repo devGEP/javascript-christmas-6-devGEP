@@ -8,7 +8,7 @@ import OutputView from '../views/OutputView.js';
 // constants
 import { RECEIPT_TITLE, PROFIT_HISTORY_DETAIL } from '../constants/eventResults.js';
 import { BEVERAGE_MENU } from '../constants/menus.js';
-import { DOESNT_EXIST } from '../constants/common.js';
+import { DOESNT_EXIST, DEFAUlT } from '../constants/common.js';
 
 class RestaurantController {
   constructor() {
@@ -17,6 +17,7 @@ class RestaurantController {
     this.beforePrice = 0;
     this.isGiftMenu = false;
     this.profitHistoryPrice = [];
+    this.totalProfitPrice = 0;
   }
 
   initialize() {
@@ -54,6 +55,7 @@ class RestaurantController {
     this.displayGiftMenu();
     this.displayProfitHistory();
     this.displayTotalProfitPrice();
+    this.displayAfterDiscountOrderedAmount();
   }
 
   displayOrderedMenu() {
@@ -94,13 +96,25 @@ class RestaurantController {
   displayTotalProfitPrice() {
     OutputView.printReceiptTitle(RECEIPT_TITLE.TOTAL_PROFIT_PRICE);
 
-    let totalProfitPrice = 0;
-
     this.profitHistoryPrice.forEach((profit) => {
-      totalProfitPrice += profit[1];
+      this.totalProfitPrice += profit[1];
     })
 
-    OutputView.printTotalProfitPrice(totalProfitPrice);
+    OutputView.printTotalProfitPrice(this.totalProfitPrice);
+  }
+
+  displayAfterDiscountOrderedAmount() {
+    OutputView.printReceiptTitle(RECEIPT_TITLE.AFTER_DISCOUNT_TOTAL_PRICE);
+
+    const totalDiscount = this.profitHistoryPrice.reduce((acc, [profitTitle, price]) => {
+      if (profitTitle !== PROFIT_HISTORY_DETAIL.GIFT_EVENT) {
+        return acc + price;
+      }
+
+      return acc;
+    }, DEFAUlT); 
+
+    OutputView.printTotalPrice(this.beforePrice - totalDiscount);
   }
 }
 
