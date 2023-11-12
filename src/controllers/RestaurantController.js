@@ -6,12 +6,11 @@ import Receipt from '../models/Receipt.js';
 import OutputView from '../views/OutputView.js';
 
 // constants
-import { RECEIPT_TITLE, PROFIT_HISTORY_DETAIL, RESULT_FORMATS } from '../constants/eventResults.js';
+import { RECEIPT_TITLE } from '../constants/eventResults.js';
 
 class RestaurantController {
   constructor() {
     this.employee = new Employee();
-    this.receipt = new Receipt();
     this.orderedMenu = [];
     this.beforePrice = 0;
     this.profitHistoryPrice = [];
@@ -23,14 +22,29 @@ class RestaurantController {
 
   async receiveRequiredInfo() {
     await this.employee.handleVisitDate();
-
     await this.employee.handleOrderedMenu();
   }
 
-  displayOrderedMenu() {
+  setupReceiptDiscounts() {
     const menu = this.employee.getOrderedMenu();
     this.orderedMenu.push(...menu);
 
+    const discountsWithDate = Receipt.calculateDiscountWithDate(this.employee.getVisitDate(), this.orderedMenu[0], this.orderedMenu[1]);
+    this.profitHistoryPrice.push(...discountsWithDate);
+  }
+
+  displayReceipt() {
+    OutputView.printEventPreviewMessage(this.employee.getVisitDate());
+
+    this.setupReceiptDiscounts();
+
+    this.displayOrderedMenu();
+    this.displayBeforeDiscountOrderedAmount();
+    this.displayGiftMenu();
+    this.displayProfitHistory();
+  }
+
+  displayOrderedMenu() {
     OutputView.printReceiptTitle(RECEIPT_TITLE.ORDER_MENU);
     
     this.orderedMenu[0].forEach((menu, index) => {
@@ -41,37 +55,23 @@ class RestaurantController {
   displayBeforeDiscountOrderedAmount() {
     OutputView.printReceiptTitle(RECEIPT_TITLE.BEFORE_DISCOUNT_TOTAL_PRICE);
 
-    this.beforePrice = this.receipt.calculateBeforeDiscountAmount(this.orderedMenu[0], this.orderedMenu[1]);
+    this.beforePrice = Receipt.calculateBeforeDiscountAmount(this.orderedMenu[0], this.orderedMenu[1]);
     OutputView.printTotalPrice(this.beforePrice);
   }
 
   displayGiftMenu() {
     OutputView.printReceiptTitle(RECEIPT_TITLE.GIFT_MENU);
 
-    const giftMenu = this.receipt.determineGiftMenu(this.beforePrice);
+    const giftMenu = Receipt.determineGiftMenu(this.beforePrice);
     OutputView.printGiftMenu(giftMenu);
   }
 
   displayProfitHistory() {
-    const profitHistoryNames = Object.values(PROFIT_HISTORY_DETAIL);
-
     OutputView.printReceiptTitle(RECEIPT_TITLE.PROFIT_HISTORY);
 
-    profitHistoryNames.forEach((profit, index) => {
-      OutputView.printProfitHistoryDetail(profit, this.profitHistoryPrice[index]);
+    this.profitHistoryPrice.forEach((profit) => {
+      OutputView.printProfitHistoryDetail(profit[0], profit[1]);
     });
-  }
-
-  displayReceipts() {
-    OutputView.printEventPreviewMessage(this.employee.getVisitDate());
-
-    const discountsWithDate = this.receipt.calculateDiscountWithDate(this.employee.getVisitDate());
-    this.profitHistoryPrice.push(...discountsWithDate);
-
-    this.displayOrderedMenu();
-    this.displayBeforeDiscountOrderedAmount();
-    this.displayGiftMenu();
-    this.displayProfitHistory();
   }
 }
 

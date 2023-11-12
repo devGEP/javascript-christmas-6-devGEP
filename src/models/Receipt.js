@@ -1,42 +1,33 @@
 // models
-import CalculateDiscount from '../models/CalculateDiscount.js';
+import DiscountCalculator from '../models/DiscountCalculator.js';
+import MenuCalculator from './MenuCalculator.js';
 
 // constants
 import { APPETIZER_MENU, MAIN_MENU, DESSERT_MENU, BEVERAGE_MENU } from '../constants/menus.js';
 
 class Receipt {
-  constructor() {
-    this.calculatediscount = new CalculateDiscount();
+  static calculateDiscountWithDate(visitDate, orderedMenuNames, orderedMenuCounts) {
+    return [
+      DiscountCalculator.calculateChristmasDDay(visitDate), 
+      DiscountCalculator.calculateSpecialEvent(visitDate),
+      DiscountCalculator.calculateDiscountBasedOnDay(visitDate, orderedMenuNames, orderedMenuCounts)
+    ]
   }
 
-  calculateDiscountWithDate(visitDate) {
-    return [this.calculatediscount.calculateChristmasDDay(visitDate), this.calculatediscount.calculateSpecialEvent(visitDate)]
-  }
-
-  compareMenu(menus, orderedMenuName, orderedMenuCount) {
-    const menuName = Object.values(menus).map((menu) => menu.name);
-    const menuPrice = Object.values(menus).map((menu) => menu.money);
-
-    if (menuName.includes(orderedMenuName)) {
-      return menuPrice[menuName.indexOf(orderedMenuName)] * orderedMenuCount;
-    }
-    return 0;
-  }
-
-  calculateBeforeDiscountAmount(orderedMenuName, orderedMenuCount) {
+  static calculateBeforeDiscountAmount(orderedMenuName, orderedMenuCount) {
     let totalPrice = 0;
 
     orderedMenuName.forEach((menu, index) => {
-      totalPrice += this.compareMenu(APPETIZER_MENU, menu, orderedMenuCount[index]);
-      totalPrice += this.compareMenu(MAIN_MENU, menu, orderedMenuCount[index]);
-      totalPrice += this.compareMenu(DESSERT_MENU, menu, orderedMenuCount[index]);
-      totalPrice += this.compareMenu(BEVERAGE_MENU, menu, orderedMenuCount[index]);
+      totalPrice += MenuCalculator.compareAndCalculateMenuPrice(APPETIZER_MENU, menu, orderedMenuCount[index]);
+      totalPrice += MenuCalculator.compareAndCalculateMenuPrice(MAIN_MENU, menu, orderedMenuCount[index]);
+      totalPrice += MenuCalculator.compareAndCalculateMenuPrice(DESSERT_MENU, menu, orderedMenuCount[index]);
+      totalPrice += MenuCalculator.compareAndCalculateMenuPrice(BEVERAGE_MENU, menu, orderedMenuCount[index]);
     })
 
     return totalPrice;
   }
 
-  determineGiftMenu(beforePrice) {
+  static determineGiftMenu(beforePrice) {
     if(beforePrice >= 120000) {
       return true;
     }

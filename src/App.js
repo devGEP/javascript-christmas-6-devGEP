@@ -11,7 +11,7 @@ class App {
 
     await this.controller.receiveRequiredInfo();
 
-    this.controller.displayReceipts();
+    this.controller.displayReceipt();
   }
 
 
