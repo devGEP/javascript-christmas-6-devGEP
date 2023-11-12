@@ -53,6 +53,7 @@ class RestaurantController {
     this.displayBeforeDiscountOrderedAmount();
     this.displayGiftMenu();
     this.displayProfitHistory();
+    this.displayTotalProfitPrice();
   }
 
   displayOrderedMenu() {
@@ -88,6 +89,18 @@ class RestaurantController {
     this.profitHistoryPrice.forEach((profit) => {
       OutputView.printProfitHistoryDetail(profit[0], profit[1]);
     });
+  }
+
+  displayTotalProfitPrice() {
+    OutputView.printReceiptTitle(RECEIPT_TITLE.TOTAL_PROFIT_PRICE);
+
+    let totalProfitPrice = 0;
+
+    this.profitHistoryPrice.forEach((profit) => {
+      totalProfitPrice += profit[1];
+    })
+
+    OutputView.printTotalProfitPrice(totalProfitPrice);
   }
 }
 

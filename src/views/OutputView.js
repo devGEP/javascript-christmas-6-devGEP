@@ -44,7 +44,11 @@ const OutputView = {
 
   printNoProfitMessage() {
     Console.print(DOESNT_EXIST);
-  }
+  },
+
+  printTotalProfitPrice(price) {
+    Console.print(RESULT_FORMATS.TOTAL_DISCOUNT(price));
+  },
 }
 
 export default OutputView;

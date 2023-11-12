@@ -19,5 +19,6 @@ export const PROFIT_HISTORY_DETAIL = Object.freeze({
 export const RESULT_FORMATS = Object.freeze({
   MENU: (menu, count) => `${menu} ${count}개`,
   PRICE: (price) => `${price.toLocaleString()}원`,
-  DISCOUNT: (profit, price) => `${profit}: -${RESULT_FORMATS.PRICE(price.toLocaleString())}`
+  DISCOUNT: (profit, price) => `${profit}: -${RESULT_FORMATS.PRICE(price.toLocaleString())}`,
+  TOTAL_DISCOUNT: (price) => `-${RESULT_FORMATS.PRICE(price.toLocaleString())}`
 })
