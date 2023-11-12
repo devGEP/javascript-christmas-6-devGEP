@@ -9,8 +9,8 @@ class Receipt {
   static calculateDiscountWithDate(visitDate, orderedMenuNames, orderedMenuCounts) {
     return [
       DiscountCalculator.calculateChristmasDDay(visitDate), 
-      DiscountCalculator.calculateSpecialEvent(visitDate),
-      DiscountCalculator.calculateDiscountBasedOnDay(visitDate, orderedMenuNames, orderedMenuCounts)
+      DiscountCalculator.calculateDiscountBasedOnDay(visitDate, orderedMenuNames, orderedMenuCounts),
+      DiscountCalculator.calculateSpecialEvent(visitDate)
     ]
   }
 

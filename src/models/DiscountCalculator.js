@@ -15,7 +15,7 @@ class DiscountCalculator {
   }
 
   static calculateSpecialEvent(visitDate) {
-    if (SPECIAL_DISCOUNT_DAY.includes(visitDate)) {
+    if (SPECIAL_DISCOUNT_DAY.includes(Number(visitDate))) {
       return [PROFIT_HISTORY_DETAIL.SPECIAL_DISCOUNT, DISCOUNT_MONEY.DEFAULT];
     }
     return [PROFIT_HISTORY_DETAIL.SPECIAL_DISCOUNT, DISCOUNT_MONEY.NO_DISCOUNT];

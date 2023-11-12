@@ -6,7 +6,8 @@ import Receipt from '../models/Receipt.js';
 import OutputView from '../views/OutputView.js';
 
 // constants
-import { RECEIPT_TITLE } from '../constants/eventResults.js';
+import { RECEIPT_TITLE, PROFIT_HISTORY_DETAIL } from '../constants/eventResults.js';
+import { BEVERAGE_MENU } from '../constants/menus.js';
 import { DOESNT_EXIST } from '../constants/common.js';
 
 class RestaurantController {
@@ -14,6 +15,7 @@ class RestaurantController {
     this.employee = new Employee();
     this.orderedMenu = [];
     this.beforePrice = 0;
+    this.isGiftMenu = false;
     this.profitHistoryPrice = [];
   }
 
@@ -32,6 +34,14 @@ class RestaurantController {
 
     const discountsWithDate = Receipt.calculateDiscountWithDate(this.employee.getVisitDate(), this.orderedMenu[0], this.orderedMenu[1]);
     this.profitHistoryPrice.push(...discountsWithDate);
+
+    this.beforePrice = Receipt.calculateBeforeDiscountAmount(this.orderedMenu[0], this.orderedMenu[1]);
+
+    this.isGiftMenu = Receipt.determineGiftMenu(this.beforePrice);
+    if (this.isGiftMenu) {
+      this.profitHistoryPrice.push([PROFIT_HISTORY_DETAIL.GIFT_EVENT, BEVERAGE_MENU.CHAMPAGNE.money]);
+    }
+
   }
 
   displayReceipt() {
@@ -56,20 +66,19 @@ class RestaurantController {
   displayBeforeDiscountOrderedAmount() {
     OutputView.printReceiptTitle(RECEIPT_TITLE.BEFORE_DISCOUNT_TOTAL_PRICE);
 
-    this.beforePrice = Receipt.calculateBeforeDiscountAmount(this.orderedMenu[0], this.orderedMenu[1]);
     OutputView.printTotalPrice(this.beforePrice);
   }
 
   displayGiftMenu() {
     OutputView.printReceiptTitle(RECEIPT_TITLE.GIFT_MENU);
 
-    const giftMenu = Receipt.determineGiftMenu(this.beforePrice);
-    OutputView.printGiftMenu(giftMenu);
+    OutputView.printGiftMenu(this.isGiftMenu);
   }
 
   displayProfitHistory() {
-    const isAllProfitNotInclude = this.profitHistoryPrice.every(profit => profit[1] === 0);
     OutputView.printReceiptTitle(RECEIPT_TITLE.PROFIT_HISTORY);
+
+    const isAllProfitNotInclude = this.profitHistoryPrice.every(profit => profit[1] === 0);
 
     if (isAllProfitNotInclude) {
       OutputView.printNoProfitMessage(DOESNT_EXIST);
