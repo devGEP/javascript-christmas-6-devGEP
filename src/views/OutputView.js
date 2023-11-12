@@ -32,7 +32,7 @@ const OutputView = {
       Console.print(RESULT_FORMATS.MENU(BEVERAGE_MENU.CHAMPAGNE.name, GIFT_COUNT));
       return;
     }
-    Console.print(DOESNT_EXIST);
+    this.printNoProfitMessage();
   },
 
   printProfitHistoryDetail(profit, price) {
@@ -40,6 +40,10 @@ const OutputView = {
       return;
     }
     Console.print(RESULT_FORMATS.DISCOUNT(profit, price));
+  },
+
+  printNoProfitMessage() {
+    Console.print(DOESNT_EXIST);
   }
 }
 

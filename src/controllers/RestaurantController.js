@@ -7,6 +7,7 @@ import OutputView from '../views/OutputView.js';
 
 // constants
 import { RECEIPT_TITLE } from '../constants/eventResults.js';
+import { DOESNT_EXIST } from '../constants/common.js';
 
 class RestaurantController {
   constructor() {
@@ -67,7 +68,13 @@ class RestaurantController {
   }
 
   displayProfitHistory() {
+    const isAllProfitNotInclude = this.profitHistoryPrice.every(profit => profit[1] === 0);
     OutputView.printReceiptTitle(RECEIPT_TITLE.PROFIT_HISTORY);
+
+    if (isAllProfitNotInclude) {
+      OutputView.printNoProfitMessage(DOESNT_EXIST);
+      return;
+    }
 
     this.profitHistoryPrice.forEach((profit) => {
       OutputView.printProfitHistoryDetail(profit[0], profit[1]);
