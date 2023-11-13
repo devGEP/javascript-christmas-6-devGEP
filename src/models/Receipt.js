@@ -1,8 +1,5 @@
-// models
 import DiscountCalculator from '../models/DiscountCalculator.js';
 import MenuCalculator from './MenuCalculator.js';
-
-// constants
 import { APPETIZER_MENU, MAIN_MENU, DESSERT_MENU, BEVERAGE_MENU } from '../constants/menus.js';
 
 class Receipt {

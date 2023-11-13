@@ -1,4 +1,3 @@
-// constants
 import { MAXIMUM_MENU_COUNT, EVENT_DATE } from "./common.js";
 
 export class CustomError extends Error {

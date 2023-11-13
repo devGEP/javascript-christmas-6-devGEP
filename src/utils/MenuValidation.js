@@ -1,4 +1,3 @@
-// constants
 import { CustomError } from "../constants/errors.js";
 import { APPETIZER_MENU, MAIN_MENU, DESSERT_MENU, BEVERAGE_MENU } from "../constants/menus.js";
 

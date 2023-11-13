@@ -1,4 +1,3 @@
-// constants
 import { EVENT_MONTH } from './common.js';
 
 export const RESTAURANT_MESSAGES = Object.freeze({

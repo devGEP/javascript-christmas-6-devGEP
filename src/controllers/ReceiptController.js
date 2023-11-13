@@ -5,9 +5,9 @@ import { BEVERAGE_MENU } from '../constants/menus.js';
 import { RECEIPT_TITLE, PROFIT_HISTORY_DETAIL, DECEMBER_EVENT_BADGE } from '../constants/eventResults.js';
 
 class ReceiptController {
-  constructor(employee, visitDateManager) {
-    this.employee = employee;
+  constructor(visitDateManager, orderMenuManager) {
     this.visitDateManager = visitDateManager;
+    this.orderMenuManager = orderMenuManager;
     this.orderedMenu = [];
     this.profitHistoryPrice = [];
     this.beforePrice = 0;
@@ -16,7 +16,7 @@ class ReceiptController {
   }
 
   setupReceiptDiscounts() {
-    const menu = this.employee.getOrderedMenu();
+    const menu = this.orderMenuManager.getOrderedMenu();
     this.orderedMenu.push(...menu);
 
     const discountsWithDate = Receipt.calculateDiscountWithDate(this.visitDateManager.getVisitDate(), this.orderedMenu[0], this.orderedMenu[1]);
@@ -45,7 +45,7 @@ class ReceiptController {
   }
 
   displayEventPreviewMessage() {
-    OutputView.printEventPreviewMessage(this.employee.getVisitDate());
+    OutputView.printEventPreviewMessage(this.visitDateManager.getVisitDate());
   }
 
   displayOrderedMenu() {
