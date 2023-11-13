@@ -1,10 +1,10 @@
 export const EVENT_MONTH = '12월';
-export const EVENT_DAY = {
+export const EVENT_DATE = {
   START: 1,
   END: 31
 };
 
-export const CHIRSTMAS_EVENT_DAY = {
+export const CHIRSTMAS_EVENT_DATE = {
   START: 1,
   END: 25
 }

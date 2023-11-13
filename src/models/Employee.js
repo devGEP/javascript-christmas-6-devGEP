@@ -1,5 +1,3 @@
-import InputView from "../views/InputView.js";
-
 class Employee {
   #visitDate;
   #menuNames;
@@ -11,16 +9,16 @@ class Employee {
     this.#menuCounts = menuCounts;
   }
 
-  async handleVisitDate() {
-    this.#visitDate = await InputView.readVisitDate();
+  setVisitDate(visitDate) {
+    this.#visitDate = visitDate;
   }
 
   getVisitDate() {
     return this.#visitDate;
   }
 
-  async handleOrderedMenu() {
-    [this.#menuNames, this.#menuCounts] = await InputView.readOrderMenu();
+  setOrderedMenu(orderedMenuNames, orderedMenuCounts) {
+    [this.#menuNames, this.#menuCounts] = [orderedMenuNames, orderedMenuCounts];
   }
 
   getOrderedMenu() {

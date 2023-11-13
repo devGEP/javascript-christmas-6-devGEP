@@ -1,4 +1,3 @@
-// controllers
 import RestaurantController from './controllers/RestaurantController.js';
 
 class App {

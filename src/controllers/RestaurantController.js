@@ -1,11 +1,14 @@
 import Employee from '../models/Employee.js';
+import VisitDateManager from '../models/VisitDateManager.js';
+import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import ReceiptController from './ReceiptController.js';
 
 class RestaurantController {
   constructor() {
     this.employee = new Employee();
-    this.receiptController = new ReceiptController(this.employee);
+    this.visitDateManager = new VisitDateManager();
+    this.receiptController = new ReceiptController(this.employee, this.visitDateManager);
   }
 
   initialize() {
@@ -13,8 +16,11 @@ class RestaurantController {
   }
 
   async receiveRequiredInfo() {
-    await this.employee.handleVisitDate();
-    await this.employee.handleOrderedMenu();
+    const visitDate = await InputView.readVisitDate();
+    this.visitDateManager.setVisitDate(visitDate);
+
+    const [orderedMenuNames, orderedMenuCounts] = await InputView.readOrderMenu();
+    this.employee.setOrderedMenu(orderedMenuNames, orderedMenuCounts);
   }
 
   displayReceipt() {

@@ -5,8 +5,9 @@ import { BEVERAGE_MENU } from '../constants/menus.js';
 import { RECEIPT_TITLE, PROFIT_HISTORY_DETAIL, DECEMBER_EVENT_BADGE } from '../constants/eventResults.js';
 
 class ReceiptController {
-  constructor(employee) {
+  constructor(employee, visitDateManager) {
     this.employee = employee;
+    this.visitDateManager = visitDateManager;
     this.orderedMenu = [];
     this.profitHistoryPrice = [];
     this.beforePrice = 0;
@@ -18,7 +19,7 @@ class ReceiptController {
     const menu = this.employee.getOrderedMenu();
     this.orderedMenu.push(...menu);
 
-    const discountsWithDate = Receipt.calculateDiscountWithDate(this.employee.getVisitDate(), this.orderedMenu[0], this.orderedMenu[1]);
+    const discountsWithDate = Receipt.calculateDiscountWithDate(this.visitDateManager.getVisitDate(), this.orderedMenu[0], this.orderedMenu[1]);
     this.profitHistoryPrice.push(...discountsWithDate);
 
     this.beforePrice = Receipt.calculateBeforeDiscountAmount(this.orderedMenu[0], this.orderedMenu[1]);

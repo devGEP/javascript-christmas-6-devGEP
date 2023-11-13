@@ -1,5 +1,5 @@
 // constants
-import { MAXIMUM_MENU_COUNT } from "./common.js";
+import { MAXIMUM_MENU_COUNT, EVENT_DATE } from "./common.js";
 
 export class CustomError extends Error {
   constructor(message) {
@@ -15,7 +15,13 @@ export const COMMON = {
   ENTER_AGAIN: '다시 입력해 주세요.'
 };
 
-export const ERROR_REASON = {
+export const DATE_ERROR_REASON = {
+  NOT_A_NUMBER: '숫자가 아닙니다.',
+  NOT_IN_RANGE: `방문하실 날짜는 ${EVENT_DATE.START} 이상 ${EVENT_DATE.END} 이하의 숫자로만 입력해주세요.`
+}
+
+export const ORDER_ERROR_REASON = {
+  NO_VALUE_ENTERED: '값이 입력되지 않았습니다.',
   MENU_COUNT: '메뉴의 개수가 없는 것이 있습니다.',
   MENU_NAME: '메뉴의 이름이 없는 것이 있습니다.',
   NOT_INCLUDE_HYPEN: '-이 포함되지 않은 것이 있습니다.',
@@ -26,5 +32,5 @@ export const ERROR_REASON = {
 
 export const ERROR_MESSAGES = Object.freeze({
   INVALID: (dateOrOrder) => `${COMMON.ERROR_TAG} 유효하지 않은 ${dateOrOrder}입니다. ${COMMON.ENTER_AGAIN}`,
-  MENU_INVALID: (errorReason) => `${COMMON.ERROR_TAG} 유효하지 않은 ${COMMON.ORDER}입니다. ${errorReason} ${COMMON.ENTER_AGAIN}`,
+  ORDER_INVALID: (errorReason) => `${COMMON.ERROR_TAG} 유효하지 않은 ${COMMON.ORDER}입니다. ${errorReason} ${COMMON.ENTER_AGAIN}`,
 });
