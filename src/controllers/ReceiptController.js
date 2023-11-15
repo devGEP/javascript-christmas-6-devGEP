@@ -1,8 +1,8 @@
-import Receipt from '../models/Receipt.js';
+import ReceiptCalculator from '../utils/ReceiptCalculator.js';
 import OutputView from '../views/OutputView.js';
-import { DOESNT_EXIST, DEFAULT_NUM } from '../constants/common.js';
+import { DOESNT_EXIST } from '../constants/common.js';
 import { BEVERAGE_MENU } from '../constants/menus.js';
-import { RECEIPT_TITLE, PROFIT_HISTORY_DETAIL, DECEMBER_EVENT_BADGE } from '../constants/eventResults.js';
+import { RECEIPT_TITLE, PROFIT_HISTORY_DETAIL } from '../constants/eventResults.js';
 
 class ReceiptController {
   constructor(visitDateManager, orderMenuManager) {
@@ -19,12 +19,12 @@ class ReceiptController {
     const menu = this.orderMenuManager.getOrderedMenu();
     this.orderedMenu.push(...menu);
 
-    const discountsWithDate = Receipt.calculateDiscountWithDate(this.visitDateManager.getVisitDate(), this.orderedMenu[0], this.orderedMenu[1]);
+    const discountsWithDate = ReceiptCalculator.calculateDiscountWithDate(this.visitDateManager.getVisitDate(), this.orderedMenu[0], this.orderedMenu[1]);
     this.profitHistoryPrice.push(...discountsWithDate);
 
-    this.beforePrice = Receipt.calculateBeforeDiscountAmount(this.orderedMenu[0], this.orderedMenu[1]);
+    this.beforePrice = ReceiptCalculator.calculateBeforeDiscountAmount(this.orderedMenu[0], this.orderedMenu[1]);
 
-    this.isGiftMenu = Receipt.determineGiftMenu(this.beforePrice);
+    this.isGiftMenu = ReceiptCalculator.determineGiftMenu(this.beforePrice);
     if (this.isGiftMenu) {
       this.addGiftEventToProfitHistory();
     }
@@ -94,31 +94,21 @@ class ReceiptController {
   displayAfterDiscountOrderedAmount() {
     OutputView.printText(RECEIPT_TITLE.AFTER_DISCOUNT_TOTAL_PRICE);
 
-    const totalDiscount = this.profitHistoryPrice.reduce((acc, [profitTitle, price]) => {
-      if (profitTitle !== PROFIT_HISTORY_DETAIL.GIFT_EVENT) {
-        return acc + price;
-      }
+    const afterDiscountAmount = ReceiptCalculator.calculateAfterDiscountAmount(this.beforePrice, this.profitHistoryPrice);
 
-      return acc;
-    }, DEFAULT_NUM); 
-
-    OutputView.printTotalPrice(this.beforePrice - totalDiscount);
+    OutputView.printTotalPrice(afterDiscountAmount);
   }
 
   displayDecemberEventBadge() {
     OutputView.printText(RECEIPT_TITLE.EVENT_BADGE);
 
-    const isBadge = Object.values(DECEMBER_EVENT_BADGE).some(badge => {
-      if (this.totalProfitPrice >= badge.money) {
-        OutputView.printText(badge.name);
-        return true;
-      }
-      return false;
-    });
+    const badge = ReceiptCalculator.determineEventBadge(this.totalProfitPrice);
 
-    if (!isBadge) {
-      OutputView.printNoProfitMessage(DOESNT_EXIST);
+    if (badge) {
+      OutputView.printText(badge.name);
+      return;
     }
+    OutputView.printNoProfitMessage(DOESNT_EXIST);
   }
 }
 

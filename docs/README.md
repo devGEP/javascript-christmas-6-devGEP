@@ -91,3 +91,47 @@
         <12월 이벤트 배지>
         산타
         ```
+
+# 폴더 구조
+```
+javascript-christmas-6-devGEP
+
+├─ 📂 __tests__
+│  ├─ 🗒️ ApplicationTest.js
+│  ├─ 📂 Validation
+│  │  ├─ 🗒️ MenuFormat.js
+│  │  ├─ 🗒️ OrderMenu.js
+│  │  └─ 🗒️ VisitDate.js
+│  ├─ 🗒️ DiscountCalculatorTest.js
+│  ├─ 🗒️ MenuCalculatorTest.js
+│  ├─ 🗒️ OrderMenuTest.js
+│  └─ 🗒️ ReceiptTest.js
+├─ 📂 docs
+│  └─ 🗒️ README.md
+└─ 📂 src
+   ├─ 🗒️ index.js
+   ├─ 🗒️ App.js
+   ├─ 🗒️ InputValidator.js
+   ├─ 📂 constants
+   │  ├─ 🗒️ common.js
+   │  ├─ 🗒️ errors.js
+   │  ├─ 🗒️ eventResults.js
+   │  ├─ 🗒️ menus.js
+   │  └─ 🗒️ messages.js
+   ├─ 📂 controllers
+   │  ├─ 🗒️ ReceiptController.js
+   │  └─ 🗒️ RestaurantController.js
+   ├─ 📂 models
+   │  ├─ 🗒️ OrderMenuManager.js
+   │  └─ 🗒️ VisitDateManager.js
+   ├─ 📂 views
+   │  ├─ 🗒️ InputView.js
+   │  └─ 🗒️ OutputView.js
+   └─ 📂 utils
+      ├─ 🗒️ DiscountCalculator.js
+      ├─ 🗒️ MenuCalculator.js
+      ├─ 🗒️ MenuValidation.js
+      ├─ 🗒️ OrderMenuTransformer.js
+      ├─ 🗒️ ReceiptCalculator.js
+      └─ 🗒️ VisitDateValidatoin.js
+```

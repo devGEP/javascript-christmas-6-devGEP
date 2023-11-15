@@ -1,8 +1,10 @@
-import DiscountCalculator from '../models/DiscountCalculator.js';
 import MenuCalculator from './MenuCalculator.js';
+import DiscountCalculator from './DiscountCalculator.js';
+import { DEFAULT_NUM } from '../constants/common.js';
+import { PROFIT_HISTORY_DETAIL, DECEMBER_EVENT_BADGE } from '../constants/eventResults.js';
 import { APPETIZER_MENU, MAIN_MENU, DESSERT_MENU, BEVERAGE_MENU } from '../constants/menus.js';
 
-class Receipt {
+class ReceiptCalculator {
   static calculateDiscountWithDate(visitDate, orderedMenuNames, orderedMenuCounts) {
     return [
       DiscountCalculator.calculateChristmasDDay(visitDate), 
@@ -30,6 +32,21 @@ class Receipt {
     }
     return false;
   }
+
+  static calculateAfterDiscountAmount(beforePrice, profitHistoryPrice) {
+    const totalDiscount = profitHistoryPrice.reduce((acc, [profitTitle, price]) => {
+      if (profitTitle !== PROFIT_HISTORY_DETAIL.GIFT_EVENT) {
+        return acc + price;
+      }
+      return acc;
+    }, DEFAULT_NUM);
+
+    return beforePrice - totalDiscount;
+  }
+
+  static determineEventBadge(totalProfitPrice) {
+    return Object.values(DECEMBER_EVENT_BADGE).find(badge => totalProfitPrice >= badge.money);
+  }
 }
 
-export default Receipt;
+export default ReceiptCalculator;

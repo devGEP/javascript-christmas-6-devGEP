@@ -5,7 +5,7 @@ import { PROFIT_HISTORY_DETAIL } from "../constants/eventResults.js";
 
 class DiscountCalculator {
   static calculateChristmasDDay(visitDate) {
-    // 이벤트 할인 기간은 12.01 ~ 12.25까지이기 때문에 25일까지만 할인을 적용한다.
+    // 이벤트 할인 기간은 12.01 ~ 12.25까지이기 때문에 1일부터 25일까지만 할인을 적용한다.
     if (visitDate >= CHIRSTMAS_EVENT_DATE.START && visitDate <= CHIRSTMAS_EVENT_DATE.END) {
       return [PROFIT_HISTORY_DETAIL.CHRISTMAS_D_DAY_DISCOUNT, DISCOUNT_MONEY.DEFAULT + DISCOUNT_MONEY.CHRISTMAS_INCREASE * (visitDate - 1)];
     }

@@ -1,4 +1,4 @@
-import OrderMenuUtility from '../utils/OrderMenuUtility.js';
+import OrderMenuTransformer from '../utils/OrderMenuTransformer.js';
 
 class OrderMenuManager {
   #menuNames;
@@ -10,8 +10,8 @@ class OrderMenuManager {
   }
 
   static processOrderMenu(orderedMenu) {
-    const menuArray = OrderMenuUtility.transformInputToMenuArray(orderedMenu);
-    const [orderMenuNames, orderMenuCounts] = OrderMenuUtility.splitMenuArray(menuArray);
+    const menuArray = OrderMenuTransformer.transformInputToMenuArray(orderedMenu);
+    const [orderMenuNames, orderMenuCounts] = OrderMenuTransformer.splitMenuArray(menuArray);
 
     return [orderMenuNames, orderMenuCounts];
   }

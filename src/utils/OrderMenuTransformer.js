@@ -1,6 +1,6 @@
 import InputValidator from '../InputValidator.js';
 
-class OrderMenuUtility {
+class OrderMenuTransformer {
   static transformInputToMenuArray(orderedMenu) {
     const menuArray = orderedMenu.split(',').map((menu) => menu.trim());
 
@@ -28,4 +28,4 @@ class OrderMenuUtility {
   }
 }
 
-export default OrderMenuUtility;
+export default OrderMenuTransformer;

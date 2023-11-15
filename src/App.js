@@ -12,9 +12,6 @@ class App {
 
     this.controller.displayReceipt();
   }
-
-
-  
 }
 
 export default App;
