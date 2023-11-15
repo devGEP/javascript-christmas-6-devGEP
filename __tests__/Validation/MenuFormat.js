@@ -1,4 +1,5 @@
-import { ERROR_MESSAGES, COMMON, ORDER_ERROR_REASON } from "../../src/constants/errors.js";
+import { ERROR_MESSAGES } from "../../src/constants/messages.js";
+import { COMMON, ORDER_ERROR_REASON } from "../../src/constants/errors.js";
 import OrderMenuTransformer from "../../src/utils/OrderMenuTransformer.js";
 
 describe('메뉴가 올바른 형식으로 들어왔는지 테스트', () => {

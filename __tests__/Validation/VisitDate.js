@@ -1,5 +1,6 @@
-import { ERROR_MESSAGES, COMMON } from "../../src/constants/errors.js";
+import { COMMON } from "../../src/constants/errors.js";
 import { EVENT_DATE } from "../../src/constants/common.js";
+import { ERROR_MESSAGES } from "../../src/constants/messages.js";
 import VisitDateManager from "../../src/models/VisitDateManager.js";
 
 describe('식당 방문 날짜 입력 테스트', () => {

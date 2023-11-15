@@ -1,6 +1,7 @@
 import VisitDateValidation from "./utils/VisitDateValidation.js";
 import MenuValidation from "./utils/MenuValidation.js";
-import { ERROR_MESSAGES, COMMON, ORDER_ERROR_REASON } from "./constants/errors.js";
+import { ERROR_MESSAGES } from "./constants/messages.js";
+import { COMMON, ORDER_ERROR_REASON } from "./constants/errors.js";
 
 class InputValidator {
   static isVisitDateValidated(visitDate) {

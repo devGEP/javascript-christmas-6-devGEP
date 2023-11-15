@@ -1,4 +1,5 @@
-import { ERROR_MESSAGES, COMMON, ORDER_ERROR_REASON } from "../../src/constants/errors.js";
+import { ERROR_MESSAGES } from "../../src/constants/messages.js";
+import { COMMON, ORDER_ERROR_REASON } from "../../src/constants/errors.js";
 import OrderMenuTransformer from "../../src/utils/OrderMenuTransformer.js";
 
 describe('메뉴 주문 입력 테스트', () => {
